@@ -3,8 +3,7 @@
         <div class="flex-center">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" style="font-size:50px;">Bem-vindo(a) à <strong>Amestris</strong>!</h5>
-                    <h5 class="card-title" style="font-size:50px;">Cadastre-se aqui</h5>
+                    <h5 class="card-title" style="font-size:50px;">Cadastre-se aqui em <strong>Amestris</strong>!</h5>
                     <div class="container">
                         <div class="form-group">
                             <div class="row">
