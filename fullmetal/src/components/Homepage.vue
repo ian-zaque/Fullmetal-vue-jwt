@@ -6,7 +6,7 @@
                     <h5 class="card-title" style="font-size:50px;">Bem-vindo(a) a <strong>Amestris</strong>!</h5>
                     <div class="links">
                         <a type="button" class="item">Entrar </a>
-                        <a type="button" class="item"> Cadastrar-se </a>
+                        <router-link to="/cadastro"><a type="button" class="item"> Cadastrar-se </a></router-link>
                     </div>
                 </div>
             </div>

@@ -1,18 +1,14 @@
 <template>
     <div class="container">
-      <home> </home>
+      <h5>Amestris</h5>
     </div>
+    <router-view></router-view>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-import Home from './components/Home.vue'
-
 export default {
   name: 'App',
   components: {
-    // HelloWorld
-    Home,
   }
 }
 </script>
