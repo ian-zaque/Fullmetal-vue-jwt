@@ -69,7 +69,7 @@ export default {
         cadastrar(){
             this.$store.dispatch('Auth/register', this.user)
                 .then(data => {
-                    this.msg = data.message; this.cadastrou = true; this.$router.push('/');
+                    this.msg = data.message; this.cadastrou = true;
                 })
                 .catch(error => { this.cadastrou=false; console.error(error);  this.msg = error; })
         },

@@ -44,7 +44,6 @@
     </div>
 </template>
 <script>
-// import { Auth } from '../store/auth.module';
 export default {
     name:'LoginUser',
     data() {
@@ -69,7 +68,7 @@ export default {
         logar(){
             this.$store.dispatch('Auth/login',this.user)
                     .then(res=>{ this.msg =res;
-                        this.$router.push('/'); 
+                        this.$router.push('/perfil'); 
                     })
                     .catch(error=>{
                         console.error(error);
