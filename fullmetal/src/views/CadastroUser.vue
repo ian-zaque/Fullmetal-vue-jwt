@@ -69,38 +69,11 @@ export default {
     methods: {
 
         cadastrar(){
-            console.log(this.user);
-            axios.post('http://127.0.0.1:8000/api/auth/register',this.user,{
-                headers:{
-                    "alg": "HS256",
-                    "typ": "JWT",
-                },
-                payload:{
-                    'name':this.user.name,
-                    'email':this.user.email,
-                    'password':this.user.password,
-                    'password_confirmation':this.user.password
-                }
-            })
-            .then(res=>{ this.msg=res.data.message; 
-                //this.logar(); 
-            })
-            .catch(erro=>{ console.error(erro) });
+            
         },
 
         logar(){
-            axios.post('http://127.0.0.1:8000/api/auth/login',this.user,{
-                headers:{
-                    "alg": "HS256",
-                    "typ": "JWT",
-                },
-                payload:{
-                    'email':this.user.email,
-                    'password':this.user.password,
-                }
-            })
-            .then(()=>{ this.$router.push('/');  })
-            .catch(erro=>{ console.error(erro) });
+            
         },
 
     },

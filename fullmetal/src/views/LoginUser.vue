@@ -55,21 +55,7 @@ export default {
     methods: {
 
         logar(){
-            console.log(this.user);
-            axios.post('http://127.0.0.1:8000/api/auth/login',this.user,{
-                headers:{
-                    "alg": "HS256",
-                    "typ": "JWT",
-                },
-                payload:{
-                    'email':this.user.email,
-                    'password':this.user.password,
-                }
-            })
-            .then(res=>{ this.msg=res; console.log(this.msg);
-                //this.$router.push('/'); 
-            })
-            .catch(erro=>{ console.error(erro) });
+            
         },
     },
 }
