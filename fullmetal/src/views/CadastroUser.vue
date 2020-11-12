@@ -42,7 +42,7 @@
                             </div>                                        
                         </div>
                         <div v-else>
-                            <div class="alert alert-success" role="alert">
+                            <div :class="cadastrou==true?'alert alert-success':'alert alert-danger'" role="alert">
                                 {{msg}}
                             </div>
                             <div class="row justify-content-center">
@@ -57,25 +57,22 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
-
 export default {
     name:'CadastroUser',
     data() {
         return {
-            user:{ name:'', email:'', password:'', password_confirmation:'' }, msg:null,
+            user:{ name:'', email:'', password:'', password_confirmation:'' }, msg:null, cadastrou:false,
         }
     },
+
     methods: {
-
         cadastrar(){
-            
+            this.$store.dispatch('Auth/register', this.user)
+                .then(data => {
+                    this.msg = data.message; this.cadastrou = true; this.$router.push('/');
+                })
+                .catch(error => { this.cadastrou=false; console.error(error);  this.msg = error; })
         },
-
-        logar(){
-            
-        },
-
     },
 }
 </script>

@@ -15,12 +15,20 @@
 </template>
 <script>
 export default {
-    name:'Home',
+    name:'HomePage',
     data() {
         return {
             
         }
     },
+
+    computed: {
+        loggedIn() {
+            console.log('home logado? ',this.$store.state.Auth.status.loggedIn)
+            return this.$store.state.Auth.status.loggedIn;
+        }
+    },
+
 }
 </script>
 <style>

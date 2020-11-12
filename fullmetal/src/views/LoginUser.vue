@@ -44,7 +44,7 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+// import { Auth } from '../store/auth.module';
 export default {
     name:'LoginUser',
     data() {
@@ -52,11 +52,30 @@ export default {
             user:{ email:'', password:'' }, msg:null,
         }
     },
-    methods: {
+    computed: {
+        loggedIn() {
+            console.log('logado? ',this.$store.state.Auth.status.loggedIn)
+            return this.$store.state.Auth.status.loggedIn;
+        }
+    },
 
+    created() {
+        if (this.loggedIn) {
+            this.$router.push('/');
+        }
+    },
+
+    methods: {
         logar(){
-            
-        },
+            this.$store.dispatch('Auth/login',this.user)
+                    .then(res=>{ this.msg =res;
+                        this.$router.push('/'); 
+                    })
+                    .catch(error=>{
+                        console.error(error);
+                    });
+        }
+    
     },
 }
 </script>
