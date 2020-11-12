@@ -3,15 +3,9 @@
         <div class="flex-center">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" style="font-size:50px;">Cadastre-se aqui em <strong>Amestris</strong>!</h5>
+                    <h5 class="card-title" style="font-size:50px;">Entre em <strong>Amestris</strong>!</h5>
                     <div class="container">
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col col-10">
-                                    <label for="nome">Nome: </label>
-                                    <input v-model="user.name" type="text" name="nome" id="nome" required>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col col-10">
                                     <label for="email">Email: </label>
@@ -23,20 +17,16 @@
                                     <label for="senha">Senha: </label>
                                     <input v-model="user.password" type="password" name="senha" id="senha" required>
                                 </div>
-                                <div class="col col-8">
-                                    <label for="repeteSenha">Repetir senha: </label>
-                                    <input v-model="user.password" type="password" name="repeteSenha" id="repeteSenha" required>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col col-12">
-                                    <button @click="cadastrar()" type="button" class="btn btn-primary">Cadastrar</button>
+                                    <button @click="logar()" type="button" class="btn btn-primary">Entrar</button>                                    
                                 </div>
-                            </div>
-                            <hr>
-                            <router-link to="/"><button type="button" class="btn btn-primary">Homepage</button></router-link>
-                            <router-link to="/login"><button type="button" class="btn btn-primary">Login</button></router-link>        
+                            </div>          
                         </div>
+                        <hr>
+                        <router-link to="/"><button type="button" class="btn btn-primary">Homepage</button></router-link>
+                        <router-link to="/cadastro"><button type="button" class="btn btn-primary">Cadastrar-se</button></router-link>
                     </div>
                 </div>
             </div>
@@ -45,35 +35,17 @@
 </template>
 <script>
 import axios from 'axios';
-
 export default {
-    name:'CadastroUser',
+    name:'LoginUser',
     data() {
         return {
-            user:{ name:'', email:'', password:'', password_confirmation:'' },
+            user:{ email:'', password:'' },
         }
     },
     methods: {
 
-        cadastrar(){
-            console.log(this.user);
-            axios.post('http://127.0.0.1:8001/api/auth/register',this.user,{
-                headers:{
-                    "alg": "HS256",
-                    "typ": "JWT",
-                },
-                payload:{
-                    'name':this.user.name,
-                    'email':this.user.email,
-                    'password':this.user.password,
-                    'password_confirmation':this.user.password
-                }
-            })
-            .then(()=>{ this.logar(); })
-            .catch(erro=>{ console.error(erro) });
-        },
-
         logar(){
+            console.log(this.user);
             axios.post('http://127.0.0.1:8001/api/auth/login',this.user,{
                 headers:{
                     "alg": "HS256",
@@ -84,10 +56,9 @@ export default {
                     'password':this.user.password,
                 }
             })
-            .then(()=>{ this.$router.push('/');  })
+            .then(()=>{ this.$router.push('/'); })
             .catch(erro=>{ console.error(erro) });
         },
-
     },
 }
 </script>
