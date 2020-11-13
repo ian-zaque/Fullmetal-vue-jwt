@@ -32,4 +32,13 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach(async(to, from, next)=>{
+  const publicos = ['/login', '/cadastro', '/'];
+  const authRequired = !publicos.includes(to.path);
+  const logado = localStorage.getItem('user');
+
+  if (authRequired && !logado) { next('/login'); }
+  else { next(); }
+})
+
 export default router

@@ -31,7 +31,7 @@ export default {
       },
       userAtual() { 
             if(this.isLogado==true){
-                return this.$store.state.Auth.user.data.user; 
+                return localStorage.getItem('user');
             }
             return null;
         }

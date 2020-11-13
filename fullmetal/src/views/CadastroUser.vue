@@ -77,9 +77,9 @@ export default {
         cadastrar(){
             this.$store.dispatch('Auth/register', this.user)
                 .then(res => {
-                    this.msg = JSON.parse(res); this.cadastrou = true;
+                    this.msg = res; this.cadastrou = true;
                 })
-                .catch(error => { this.msg = JSON.parse(error); this.cadastrou=false; console.error(error); })
+                .catch(error => { this.msg = error; this.cadastrou=false; console.error(error); })
         },
     },
 }

@@ -7,8 +7,8 @@ class AuthService{
     login(user){
         return axios.post(url+'/login',user)
             .then(res=>{ 
-                if(res.data.accessToken){
-                    localStorage.setItem('user',JSON.stringify(res.data)); 
+                if(res.data.access_token){
+                    localStorage.setItem('user',JSON.stringify(res.data));
                 }
                 return res;
             })
@@ -21,15 +21,13 @@ class AuthService{
     }
 
     logout() {
-        return axios.post(url+'/logout')
-            .then(()=>{ localStorage.removeItem('user'); return true; })
-            .catch(error=> { return error; });
+        localStorage.removeItem('user');
     }
 
     authHeader(){
-        let user = JSON.parse(localStorage.getItem('user'));
+        let user = localStorage.getItem('user');
 
-        if (user && user.accessToken) {
+        if (user && user.access_token) {
             axios.post(url+'/user-profile')
                 .then(()=>{ return { Authorization: 'Bearer ' + user.accessToken }; })
                 .catch(()=>{ return {}; })
