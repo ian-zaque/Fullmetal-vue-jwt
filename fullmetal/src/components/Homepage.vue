@@ -8,7 +8,7 @@
                     <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary" replace> Cadastrar-se </button></router-link>
                 </div>
                 <div v-else>
-                    <h5><strong>{{userAtual.name}}</strong> está logado!</h5>
+                    <h5><strong>{{userAtual.user.name}}</strong> está logado!</h5>
                     <router-link to="/perfil"><button type="button" class="item btn btn-outline-primary" replace>Perfil </button></router-link>
                 </div>
             </div>
@@ -33,7 +33,7 @@ export default {
             if(this.isLogado==true){
                 //return localStorage.getItem('user');
                 console.log(this.$store.state.Auth.user.data.user.name);
-                return this.$store.state.Auth.user.data.user;
+                return this.$store.state.Auth.user.data;
             }
             return null;
         }

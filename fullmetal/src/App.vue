@@ -9,7 +9,9 @@
                 <router-link to="/perfil" replace>
                   <a class="navbar-brand text-white"> <i class="far fa-id-badge"></i> Perfil</a>
                 </router-link>
-                <a class="navbar-brand text-white" @click="sair()" type="button"> <i class="fas fa-sign-out-alt"></i> Sair</a>
+                <router-link to="/" replace>
+                  <a class="navbar-brand text-white" @click="sair()" type="button"> <i class="fas fa-sign-out-alt"></i> Sair</a>
+                </router-link>
               </div>
               <div v-else class="flex-row justify-content-right">
                 <router-link to="/login" replace>
@@ -35,13 +37,20 @@ export default {
       isLogado() {
           if(this.$store.state.Auth.user){ return true;  }
           return false;
-      }
+      },
+      userAtual() { 
+            if(this.isLogado){
+                //return localStorage.getItem('user');
+                console.log(this.$store.state.Auth.user);
+                return this.$store.state.Auth.user.data.user;
+            }
+            return null;
+        }
     },
 
     methods: {
       sair(){
         this.$store.dispatch('Auth/logout');
-        this.$router.replace('/login');
       }
     },
 

@@ -37,7 +37,6 @@ export default {
         logado() { return this.$store.state.Auth.status.loggedIn; },
         userAtual() { 
             if(this.logado){
-                //return localStorage.getItem('user');
                 console.log(this.$store.state.Auth.user);
                 return this.$store.state.Auth.user.data.user;
             }
