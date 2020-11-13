@@ -22,7 +22,8 @@ class AuthService{
 
     logout() {
         return axios.post(url+'/logout')
-            .then(()=>{ localStorage.removeItem('user'); return {}; })
+            .then(()=>{ localStorage.removeItem('user'); return true; })
+            .catch(error=> { return error; });
     }
 
     authHeader(){

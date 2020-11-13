@@ -1,54 +1,52 @@
 <template>
-    <div class="container">
-        <div class="flex-center">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size:50px;">Cadastre-se aqui em <strong>Amestris</strong>!</h5>
-                    <div class="flex-center">
-                        <div v-if="msg==null" class="form-group">
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-6">
-                                    <label for="nome">Nome: </label>
-                                    <input v-model="user.name" class="form-control" type="text" name="nome" id="nome" required>
-                                </div>
+    <div class="flex-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size:50px;">Cadastre-se aqui em <strong>Amestris</strong>!</h5>
+                <div class="flex-center">
+                    <div v-if="msg==null" class="form-group">
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-6">
+                                <label for="nome">Nome: </label>
+                                <input v-model="user.name" class="form-control" type="text" name="nome" id="nome" required>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-6">
-                                    <label for="email">Email: </label>
-                                    <input v-model="user.email" class="form-control" type="email" name="email" id="email" required>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-6">
-                                    <label for="senha">Senha: </label>
-                                    <input v-model="user.password" class="form-control" type="password" name="senha" id="senha" required>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-6">
-                                    <label for="repeteSenha">Confirmação Senha: </label>
-                                    <input v-model="user.password" class="form-control" type="password" name="repeteSenha" id="repeteSenha" required>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-6">
-                                    <button @click="cadastrar()" type="button" class="item btn btn-primary">Cadastrar</button>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row justify-content-center">
-                                <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
-                                <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Login</button></router-link>
-                            </div>                                        
                         </div>
-                        <div v-else>
-                            <div :class="cadastrou==true?'alert alert-success':'alert alert-danger'" role="alert">
-                                {{msg}}
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-6">
+                                <label for="email">Email: </label>
+                                <input v-model="user.email" class="form-control" type="email" name="email" id="email" required>
                             </div>
-                            <div class="row justify-content-center">
-                                <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
-                                <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Login</button></router-link>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-6">
+                                <label for="senha">Senha: </label>
+                                <input v-model="user.password" class="form-control" type="password" name="senha" id="senha" required>
                             </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-6">
+                                <label for="repeteSenha">Confirmação Senha: </label>
+                                <input v-model="user.password" class="form-control" type="password" name="repeteSenha" id="repeteSenha" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-6">
+                                <button @click="cadastrar()" type="button" class="item btn btn-primary">Cadastrar</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row justify-content-center">
+                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
+                            <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Login</button></router-link>
+                        </div>                                        
+                    </div>
+                    <div v-else>
+                        <div :class="cadastrou==true?'alert alert-success':'alert alert-danger'" role="alert">
+                            <p>{{msg}}</p>
+                        </div>
+                        <div class="row justify-content-center">
+                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
+                            <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Login</button></router-link>
                         </div>
                     </div>
                 </div>
@@ -65,13 +63,23 @@ export default {
         }
     },
 
+    computed: {
+        logado() {
+            return this.$store.state.Auth.status.loggedIn;
+        }
+    },
+
+    created() {
+        if (this.logado) { this.$router.push('/'); }
+    },
+
     methods: {
         cadastrar(){
             this.$store.dispatch('Auth/register', this.user)
-                .then(data => {
-                    this.msg = data.message; this.cadastrou = true;
+                .then(res => {
+                    this.msg = JSON.parse(res); this.cadastrou = true;
                 })
-                .catch(error => { this.cadastrou=false; console.error(error);  this.msg = error; })
+                .catch(error => { this.msg = JSON.parse(error); this.cadastrou=false; console.error(error); })
         },
     },
 }

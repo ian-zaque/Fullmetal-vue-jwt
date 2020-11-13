@@ -1,42 +1,47 @@
 <template>
-    <div class="container">
-        <div class="flex-center">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size:50px;">Entre em <strong>Amestris</strong>!</h5>
-                    <div v-if="msg==null" class="flex-center">
-                        <div class="form-group">
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-8">
-                                    <label>Email: </label>
-                                    <input v-model="user.email" class="form-control" type="email" name="email" id="email" required>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center" >
-                                <div class="form-group col col-8">
-                                    <label>Senha: </label>
-                                    <input v-model="user.password" class="form-control" type="password" name="senha" id="senha" required>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="form-group col col-12">
-                                    <button @click="logar()" type="button" class="item btn btn-primary">Entrar</button>                                    
-                                </div>
-                            </div>          
-                        </div>
-                        <hr>
+    <div class="flex-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size:50px;">Entre em <strong>Amestris</strong>!</h5>
+                <div v-if="msg==null" class="flex-center">
+                    <div class="form-group">
                         <div class="row justify-content-center">
-                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
-                            <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary">Cadastrar-se</button></router-link>
-                        </div>                   
+                            <div class="form-group col col-8">
+                                <label>Email: </label>
+                                <input v-model="user.email" class="form-control" type="email" name="email" id="email" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center" >
+                            <div class="form-group col col-8">
+                                <label>Senha: </label>
+                                <input v-model="user.password" class="form-control" type="password" name="senha" id="senha" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group col col-12">
+                                <button @click="logar()" type="button" class="item btn btn-primary">Entrar</button>                                    
+                            </div>
+                        </div>          
                     </div>
-                    <div v-else>
+                    <hr>
+                    <div class="row justify-content-center">
+                        <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
+                        <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary">Cadastrar-se</button></router-link>
+                    </div>                   
+                </div>
+                <div v-else>
+                    <div v-if="logou==true">
                         <div class="alert alert-success" role="alert">
                                 {{msg}}
                         </div>
-                        <div class="row justify-content-center">
-                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
+                    </div>
+                    <div v-else>
+                        <div class="alert alert-danger" role="alert">
+                                {{msg}}
                         </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
                     </div>
                 </div>
             </div>
@@ -48,33 +53,27 @@ export default {
     name:'LoginUser',
     data() {
         return {
-            user:{ email:'', password:'' }, msg:null,
+            user:{ email:'', password:'' }, msg:null, logou:false,
         }
     },
     computed: {
-        loggedIn() {
-            console.log('logado? ',this.$store.state.Auth.status.loggedIn)
-            return this.$store.state.Auth.status.loggedIn;
-        }
+        logado() { return this.$store.state.Auth.status.loggedIn; }
     },
 
     created() {
-        if (this.loggedIn) {
-            this.$router.push('/');
-        }
+        if (this.logado) { this.$router.push('/'); }
     },
 
     methods: {
         logar(){
             this.$store.dispatch('Auth/login',this.user)
-                    .then(res=>{ this.msg =res;
-                        this.$router.push('/perfil'); 
-                    })
-                    .catch(error=>{
-                        console.error(error);
-                    });
+                .then(res=>{ this.msg =res;
+                    this.$router.push('/perfil'); 
+                })
+                .catch(error=>{ this.msg=error;
+                    console.error(error);
+                });
         }
-    
     },
 }
 </script>

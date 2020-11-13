@@ -1,13 +1,15 @@
 <template>
-    <div class="container">
-        <div class="flex-center">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size:50px;">Bem-vindo(a) à <strong>Amestris</strong>!</h5>
-                    <div class="links">
-                        <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Entrar </button></router-link>
-                        <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary"> Cadastrar-se </button></router-link>
-                    </div>
+    <div class="flex-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size:50px;">Bem-vindo(a) à <strong>Amestris</strong>!</h5>
+                <div v-if="isLogado==false" class="links">
+                    <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Entrar </button></router-link>
+                    <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary"> Cadastrar-se </button></router-link>
+                </div>
+                <div v-else>
+                    <h5><strong>{{userAtual.name}}</strong> está logado!</h5>
+                    <router-link to="/perfil"><button type="button" class="item btn btn-outline-primary">Perfil </button></router-link>
                 </div>
             </div>
         </div>
@@ -17,17 +19,23 @@
 export default {
     name:'HomePage',
     data() {
-        return {
-            
+        return { 
+            user:{name:''},
         }
     },
 
     computed: {
-        loggedIn() {
-            console.log('home logado? ',this.$store.state.Auth.status.loggedIn)
-            return this.$store.state.Auth.status.loggedIn;
+      isLogado() {
+          if(this.$store.state.Auth.status.loggedIn){ return true;  }
+          return false;
+      },
+      userAtual() { 
+            if(this.isLogado==true){
+                return this.$store.state.Auth.user.data.user; 
+            }
+            return null;
         }
-    },
+    }
 
 }
 </script>

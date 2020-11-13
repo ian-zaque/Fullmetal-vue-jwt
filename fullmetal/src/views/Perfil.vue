@@ -1,38 +1,25 @@
 <template>
-    <div class="container">
-        <div class="flex-center">
-            <div class="card">
-                <div v-if="userAtual!==null" class="card-body">
-                    <h5 class="card-title" style="font-size:50px;">Perfil de <strong>{{userAtual.name}}</strong></h5>
-                    <div class="flex-center">
-                        <div class="form-group">
-                            <div class="row justify-content-center">
-                                 <div class="form-group col col-8">
-                                    <label>Nome: </label>
-                                    <input v-model="userAtual.email" class="form-control" type="text" name="nome" id="nome" disabled>
-                                </div>
-                                <div class="form-group col col-8">
-                                    <label>Email: </label>
-                                    <input v-model="userAtual.email" class="form-control" type="email" name="email" id="email" disabled>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center" >
-                                <!-- <div class="form-group col col-8">
-                                    <label>Senha: </label>
-                                    <input v-model="user.password" class="form-control" type="password" name="senha" id="senha" disabled>
-                                </div> -->
-                            </div>
-                            <div class="row justify-content-center">
-                                <!-- <div class="form-group col col-12">
-                                    <button @click="logar()" type="button" class="item btn btn-primary">Entrar</button>                                    
-                                </div> -->
-                            </div>          
-                        </div>
-                        <hr>
+    <div class="flex-center">
+        <div class="card">
+            <div v-if="userAtual!==null" class="card-body">
+                <h5 class="card-title" style="font-size:50px;">Perfil de <strong>{{userAtual.name}}</strong></h5>
+                <div class="flex-center">
+                    <div class="form-group">
                         <div class="row justify-content-center">
-                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>                            
-                        </div>                   
+                                <div class="form-group col col-8">
+                                <label>Nome: </label>
+                                <input v-model="userAtual.name" class="form-control" type="text" name="nome" id="nome" disabled>
+                            </div>
+                            <div class="form-group col col-8">
+                                <label>Email: </label>
+                                <input v-model="userAtual.email" class="form-control" type="email" name="email" id="email" disabled>
+                            </div>
+                        </div>         
                     </div>
+                    <hr>
+                    <div class="row justify-content-center">
+                        <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>                            
+                    </div>                   
                 </div>
             </div>
         </div>
@@ -47,14 +34,17 @@ export default {
     },
 
     computed: {
-        userAtual() {
-            console.log(this.$store.state.Auth.user.data.user)
-            return this.$store.state.Auth.user.data.user
+        logado() { return this.$store.state.Auth.status.loggedIn; },
+        userAtual() { 
+            if(this.logado){
+                return this.$store.state.Auth.user.data.user; 
+            }
+            return null;
         }
     },
 
     mounted() {
-        if (!this.userAtual) {
+        if (!this.logado) {
             this.$router.push('/login');
         }
     }
