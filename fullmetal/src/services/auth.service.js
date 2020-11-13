@@ -8,10 +8,8 @@ class AuthService{
         return axios.post(url+'/login',user)
             .then(res=>{ 
                 if(res.data.access_token){
-                    localStorage.setItem('user',JSON.stringify(res.data.user));
-                    localStorage.setItem('token',res.data.access_token);
+                    localStorage.setItem('user',JSON.stringify(res.data));
                     console.log('USER',localStorage.getItem('user'));
-                    console.log('TOKEN',localStorage.getItem('token'))
                 }
                 return res;
             })
@@ -24,13 +22,13 @@ class AuthService{
     }
 
     logout() {
-        localStorage.removeItem('user'); localStorage.removeItem('token'); 
+        localStorage.removeItem('user');
+
     }
 
     authHeader(){
         let user = localStorage.getItem('user');
-        let token = localStorage.getItem('token');
-        if (user && token) {
+        if (user && user.access_token) {
             axios.post(url+'/user-profile')
                 .then(()=>{ return { Authorization: 'Bearer ' + user.access_token }; })
                 .catch(()=>{ return {}; })
