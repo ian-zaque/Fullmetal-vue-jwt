@@ -2,17 +2,17 @@
     <div class="flex-center">
         <div class="card">
             <div v-if="userAtual!==null" class="card-body">
-                <h5 class="card-title" style="font-size:50px;">Perfil de <strong>{{userAtual.name}}</strong></h5>
+                <h5 class="card-title" style="font-size:50px;">Perfil de <strong>{{userAtual.user.name}}</strong></h5>
                 <div class="flex-center">
                     <div class="form-group">
                         <div class="row justify-content-center">
                                 <div class="form-group col col-8">
                                 <label>Nome: </label>
-                                <input v-model="userAtual.name" class="form-control" type="text" name="nome" id="nome" disabled>
+                                <input v-model="userAtual.user.name" class="form-control" type="text" name="nome" id="nome" disabled>
                             </div>
                             <div class="form-group col col-8">
                                 <label>Email: </label>
-                                <input v-model="userAtual.email" class="form-control" type="email" name="email" id="email" disabled>
+                                <input v-model="userAtual.user.email" class="form-control" type="email" name="email" id="email" disabled>
                             </div>
                         </div>         
                     </div>
@@ -37,8 +37,9 @@ export default {
         logado() { return this.$store.state.Auth.status.loggedIn; },
         userAtual() { 
             if(this.logado){
-                console.log(this.$store.state.Auth.user);
-                return this.$store.state.Auth.user.data.user;
+                //return localStorage.getItem('user');
+                console.log(localStorage.getItem('user'));
+                return JSON.parse(localStorage.getItem('user'));
             }
             return null;
         }

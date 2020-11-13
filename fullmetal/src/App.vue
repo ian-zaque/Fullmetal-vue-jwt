@@ -41,8 +41,8 @@ export default {
       userAtual() { 
             if(this.isLogado){
                 //return localStorage.getItem('user');
-                console.log(this.$store.state.Auth.user);
-                return this.$store.state.Auth.user.data.user;
+                console.log(localStorage.getItem('user'));
+                return JSON.parse(localStorage.getItem('user'));
             }
             return null;
         }
