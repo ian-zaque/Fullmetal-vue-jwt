@@ -25,23 +25,18 @@
                     </div>
                     <hr>
                     <div class="row justify-content-center">
-                        <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
-                        <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary">Cadastrar-se</button></router-link>
+                        <router-link to="/"><button type="button" class="item btn btn-outline-primary" replace>Homepage</button></router-link>
+                        <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary" replace>Cadastrar-se</button></router-link>
                     </div>                   
                 </div>
                 <div v-else>
                     <div v-if="logou==true">
-                        <div class="alert alert-success" role="alert">
-                                {{msg}}
-                        </div>
-                    </div>
-                    <div v-else>
-                        <div class="alert alert-danger" role="alert">
-                                {{msg}}
+                        <div :class="msg.data.access_token?'alert alert-success':'alert alert-danger'" role="alert">
+                                {{msg.statusText}}
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
+                        <router-link to="/"><button type="button" class="item btn btn-outline-primary" replace>Homepage</button></router-link>
                     </div>
                 </div>
             </div>
@@ -61,16 +56,15 @@ export default {
     },
 
     created() {
-        if (this.logado) { this.$router.push('/'); }
+        if (this.logado) { this.$router.replace('/'); }
     },
 
     methods: {
         logar(){
             this.$store.dispatch('Auth/login',this.user)
-                .then(res=>{ this.msg =res;
-                    this.$router.push('/perfil'); 
+                .then(res=>{ this.msg =res; this.logou=true;
                 })
-                .catch(error=>{ this.msg=error;
+                .catch(error=>{ this.msg=error; this.logou=false;
                     console.error(error);
                 });
         }

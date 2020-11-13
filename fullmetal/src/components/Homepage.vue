@@ -4,12 +4,12 @@
             <div class="card-body">
                 <h5 class="card-title" style="font-size:50px;">Bem-vindo(a) à <strong>Amestris</strong>!</h5>
                 <div v-if="isLogado==false" class="links">
-                    <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Entrar </button></router-link>
-                    <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary"> Cadastrar-se </button></router-link>
+                    <router-link to="/login"><button type="button" class="item btn btn-outline-primary" replace>Entrar </button></router-link>
+                    <router-link to="/cadastro"><button type="button" class="item btn btn-outline-primary" replace> Cadastrar-se </button></router-link>
                 </div>
                 <div v-else>
                     <h5><strong>{{userAtual.name}}</strong> está logado!</h5>
-                    <router-link to="/perfil"><button type="button" class="item btn btn-outline-primary">Perfil </button></router-link>
+                    <router-link to="/perfil"><button type="button" class="item btn btn-outline-primary" replace>Perfil </button></router-link>
                 </div>
             </div>
         </div>
@@ -31,7 +31,9 @@ export default {
       },
       userAtual() { 
             if(this.isLogado==true){
-                return localStorage.getItem('user');
+                //return localStorage.getItem('user');
+                console.log(this.$store.state.Auth.user.data.user.name);
+                return this.$store.state.Auth.user.data.user;
             }
             return null;
         }

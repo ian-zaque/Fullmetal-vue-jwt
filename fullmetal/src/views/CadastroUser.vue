@@ -36,8 +36,8 @@
                         </div>
                         <hr>
                         <div class="row justify-content-center">
-                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
-                            <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Login</button></router-link>
+                            <router-link to="/"><button type="button" class="item btn btn-outline-primary" replace>Homepage</button></router-link>
+                            <router-link to="/login"><button type="button" class="item btn btn-outline-primary" replace>Login</button></router-link>
                         </div>                                        
                     </div>
                     <div v-else>
@@ -45,8 +45,8 @@
                             <p>{{msg}}</p>
                         </div>
                         <div class="row justify-content-center">
-                            <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>
-                            <router-link to="/login"><button type="button" class="item btn btn-outline-primary">Login</button></router-link>
+                            <router-link to="/"><button type="button" class="item btn btn-outline-primary" replace>Homepage</button></router-link>
+                            <router-link to="/login"><button type="button" class="item btn btn-outline-primary" replace>Login</button></router-link>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default {
     },
 
     created() {
-        if (this.logado) { this.$router.push('/'); }
+        if (this.logado) { this.$router.replace('/'); }
     },
 
     methods: {

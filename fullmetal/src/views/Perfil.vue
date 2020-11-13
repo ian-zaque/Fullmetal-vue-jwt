@@ -18,7 +18,7 @@
                     </div>
                     <hr>
                     <div class="row justify-content-center">
-                        <router-link to="/"><button type="button" class="item btn btn-outline-primary">Homepage</button></router-link>                            
+                        <router-link to="/"><button type="button" class="item btn btn-outline-primary" replace>Homepage</button></router-link>                            
                     </div>                   
                 </div>
             </div>
@@ -37,8 +37,9 @@ export default {
         logado() { return this.$store.state.Auth.status.loggedIn; },
         userAtual() { 
             if(this.logado){
-                console.log(localStorage.getItem('user'))
-                return localStorage.getItem('user');
+                //return localStorage.getItem('user');
+                console.log(this.$store.state.Auth.user);
+                return this.$store.state.Auth.user.data.user;
             }
             return null;
         }
@@ -46,7 +47,7 @@ export default {
 
     mounted() {
         if (!this.logado) {
-            this.$router.push('/login');
+            this.$router.replace('/login');
         }
     }
 
