@@ -19,7 +19,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="form-group col col-12">
-                                <button @click="logar()" type="button" class="item btn btn-primary">Entrar</button>                                    
+                                <button @click="logar()" :disabled="isRequesting==true" type="button" class="item btn btn-primary">Entrar</button>                                    
                             </div>
                         </div>          
                     </div>
@@ -48,7 +48,7 @@ export default {
     name:'LoginUser',
     data() {
         return {
-            user:{ email:'', password:'' }, msg:null, logou:false,
+            user:{ email:'', password:'' }, msg:null, logou:false, isRequesting:false,
         }
     },
     computed: {
@@ -61,10 +61,11 @@ export default {
 
     methods: {
         logar(){
+            this.isRequesting=true;
             this.$store.dispatch('Auth/login',this.user)
-                .then(res=>{ this.msg =res; this.logou=true;
+                .then(res=>{ this.msg =res; this.logou=true; this.isRequesting=false;
                 })
-                .catch(error=>{ this.msg=error; this.logou=false;
+                .catch(error=>{ this.msg=error; this.logou=false; this.isRequesting=false;
                     console.error(error);
                 });
         }

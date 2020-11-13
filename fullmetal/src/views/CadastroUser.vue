@@ -31,7 +31,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="form-group col col-6">
-                                <button @click="cadastrar()" type="button" class="item btn btn-primary">Cadastrar</button>
+                                <button @click="cadastrar()" :disabled="isRequesting==true" type="button" class="item btn btn-primary">Cadastrar</button>
                             </div>
                         </div>
                         <hr>
@@ -42,7 +42,7 @@
                     </div>
                     <div v-else>
                         <div :class="cadastrou==true?'alert alert-success':'alert alert-danger'" role="alert">
-                            <p>{{msg}}</p>
+                            <p>{{msg.message}}</p>
                         </div>
                         <div class="row justify-content-center">
                             <router-link to="/"><button type="button" class="item btn btn-outline-primary" replace>Homepage</button></router-link>
@@ -59,7 +59,7 @@ export default {
     name:'CadastroUser',
     data() {
         return {
-            user:{ name:'', email:'', password:'', password_confirmation:'' }, msg:null, cadastrou:false,
+            user:{ name:'', email:'', password:'', password_confirmation:'' }, msg:null, cadastrou:false, isRequesting:false,
         }
     },
 
@@ -75,11 +75,12 @@ export default {
 
     methods: {
         cadastrar(){
+            this.isRequesting=true;
             this.$store.dispatch('Auth/register', this.user)
                 .then(res => {
-                    this.msg = res; this.cadastrou = true;
+                    this.msg = res; this.cadastrou = true; this.isRequesting=false;
                 })
-                .catch(error => { this.msg = error; this.cadastrou=false; console.error(error); })
+                .catch(error => { this.isRequesting=false; this.msg = error; this.cadastrou=false; console.error(error); })
         },
     },
 }
