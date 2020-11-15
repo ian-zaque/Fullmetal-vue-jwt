@@ -31,8 +31,6 @@ export default {
       },
       userAtual() { 
             if(this.isLogado==true){
-                //return localStorage.getItem('user');
-                console.log(localStorage.getItem('user'));
                 return JSON.parse(localStorage.getItem('user'));
             }
             return null;

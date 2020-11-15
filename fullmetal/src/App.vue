@@ -9,6 +9,9 @@
                 <router-link to="/perfil" replace>
                   <a class="navbar-brand text-white"> <i class="far fa-id-badge"></i> Perfil</a>
                 </router-link>
+                <router-link to="/cadastroEmpresa" replace>
+                  <a class="navbar-brand text-white"> <i class="far fa-id-badge"></i> Empresas</a>
+                </router-link>
                 <router-link to="/" replace>
                   <a class="navbar-brand text-white" @click="sair()" type="button"> <i class="fas fa-sign-out-alt"></i> Sair</a>
                 </router-link>
